@@ -634,7 +634,9 @@ trans_diff <- R6Class(classname = "trans_diff",
 			node_size_scale = 1,
 			node_size_offset = 1,
 			annotation_shape = 22,
-			annotation_shape_size = 5
+			annotation_shape_size = 5,
+			label_offset = 0.4,
+			label_size_offset = 1
 			){
 			abund_table <- self$abund_table
 			marker_table <- self$res_lefse %>% dropallfactors
@@ -745,8 +747,8 @@ trans_diff <- R6Class(classname = "trans_diff",
 			clade_label <- dplyr::transmute(
 				annotation_info,
 				node = .data$id,
-				offset = private$get_offset(.data$level)-0.4,
-				offset.text = 0,
+				offset = private$get_offset(.data$level)-label_offset,
+				offset.text = label_size_offset,
 				angle = purrr::map_dbl(.data$id, private$get_angle, tree = tree),
 				label = .data$label,
 				fontsize = clade_label_size + log(.data$level + 20),
